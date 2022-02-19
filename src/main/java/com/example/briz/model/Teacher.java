@@ -23,7 +23,7 @@ public class Teacher {
     private String lastName;
     @Column (name = "born_year")
     private Long bornYear;
-
+    @Column (name = "gender")
     private String gender;
     @Column (name = "main_subject")
     private String mainSubject;

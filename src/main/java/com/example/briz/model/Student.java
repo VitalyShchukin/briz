@@ -24,10 +24,10 @@ public class Student {
     private String lastName;
     @Column (name = "born_year")
     private Long bornYear;
-
+    @Column (name = "gender")
     private String gender;
-    @ManyToOne
-    private List<Group> group;
+//    @ManyToOne
+//    private List<Group> group;
 
     public Student(Long id, String firstName, String middleName, String lastName, Long bornYear, String gender) {
         this.id = id;

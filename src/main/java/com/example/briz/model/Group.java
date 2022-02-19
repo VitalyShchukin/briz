@@ -16,16 +16,23 @@ public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column (name = "mnemocode")
     private String mnemocode;
+    @Column (name = "academic_year")
+    private String academicYear;
+    @Column (name = "student_id")
+    private Long studentId;
+    @Column (name = "teacher_id")
+    private Long teacherId;
 
-    @ManyToOne (fetch = FetchType.EAGER)
-    @JoinColumn (name = "teacher_id")
-    private Teacher teacher;
 
-    @OneToMany (fetch = FetchType.EAGER)
-    @JoinColumn (name = "student_id")
-    private Student student;
+//    @ManyToOne (fetch = FetchType.EAGER)
+//    @JoinColumn (name = "teacher_id")
+//    private Teacher teacher;
+
+//    @OneToMany (fetch = FetchType.EAGER)
+//    @JoinColumn (name = "student_id")
+//    private Student student;
 
     public Group(Long id, String mnemocode) {
         this.id = id;
