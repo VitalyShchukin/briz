@@ -13,34 +13,67 @@
 
 <div class="px-4 py-5 my-5 text-center">
     <div class="table-responsive">
+
+        <div>
+            <h3>Форма добавления учеников</h3>
+            <table class="table table-striped table-sm" width="">
+                <thead>
+                <tr>
+                    <th scope="col" width="" align="center" style="width:15%">Имя ученика</th>
+                    <th scope="col" width="" align="center" style="width:20%">Отчество ученика</th>
+                    <th scope="col" width="" align="center" style="width:20%">Фамилия ученика</th>
+                    <th scope="col" width="" align="center" style="width:15%">Год рождения ученика</th>
+                    <th scope="col" width="" align="center" style="width:15%">Пол ученика</th>
+                    <th scope="col" width="" align="center" style="width:15%"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <form action="/student" method="post">
+                        <td><input type="text" class="form-control" name="firstName" placeholder="Введите имя">
+                        </td>
+                        <td><input type="text" class="form-control" name="middleName" placeholder="Введите отчество">
+                        </td>
+                        <td><input type="text" class="form-control" name="lastName" placeholder="Введите фамилию">
+                        </td>
+                        <td><input type="text" class="form-control" name="bornYear" placeholder="Введите год">
+                        </td>
+                        <td>
+                            <select class="form-select" name="gender">
+                                <option align="center">м</option>
+                                <option align="center">ж</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button tipe="submit" class="btn btn-sm btn-outline-secondary">Добавить ученика</button>
+                        </td>
+                    </form>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
         <h3>Список всех учеников</h3>
-<!--        <div align="center">-->
-<!--            <a type="button" class="btn btn-outline-primary me-2" href="/less1000">Найти все теги со значением менее-->
-<!--                1000</a>-->
-<!--            <a type="button" class="btn btn-outline-primary me-2" href="/over1000">Найти все теги со значением более-->
-<!--                1000</a>-->
-<!--        </div>-->
         <table class="table table-striped table-sm" width="">
             <thead>
             <tr>
-                <th scope="col" width="" align="center">Имя</th>
-                <th scope="col" width="" align="center">Отчество</th>
-                <th scope="col" width="" align="center">Фамилия</th>
-                <th scope="col" width="" align="center">Год рождения</th>
-                <th scope="col" width="" align="center">Пол</th>
-<!--                <th scope="col" width="" align="center"></th>-->
+                <th scope="col" width="" align="center" style="width:15%">Имя</th>
+                <th scope="col" width="" align="center" style="width:20%">Отчество</th>
+                <th scope="col" width="" align="center" style="width:20%">Фамилия</th>
+                <th scope="col" width="" align="center" style="width:15%">Год рождения</th>
+                <th scope="col" width="" align="center" style="width:15%">Пол</th>
+                <th scope="col" width="" align="center" style="width:15%"></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="el : ${list}">
-                <td th:text="${el.firstName}" style="width:10%"/>
-                <td th:text="${el.middleName}" style="width:10%"/>
-                <td th:text="${el.lastName}" style="width:50%"/>
-                <td th:text="${el.bornYear}" style="width:50%"/>
+                <td th:text="${el.firstName}"/>
+                <td th:text="${el.middleName}"/>
+                <td th:text="${el.lastName}"/>
+                <td th:text="${el.bornYear}"/>
                 <td th:text="${el.gender}"/>
-                <!--                <td><button tipe="submit" class="btn btn-sm btn-outline-secondary">Посмотреть полный текст</button></td>-->
                 <td>
-                    <form th:action="'/records/'+${el.id}+'/remove'" method="post">
+                    <form th:action="'/student/'+${el.id}+'/remove'" method="post">
                         <button class="btn btn-sm btn-outline-secondary" tipe="submit">Удалить запись</button>
                     </form>
                 </td>

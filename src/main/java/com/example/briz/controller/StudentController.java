@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -15,10 +18,29 @@ public class StudentController {
     private StudentRepository studentRepository;
 
     @GetMapping("/student")
-    public String findAllStudents(Model model){
-        List<Student> list=studentRepository.findAll();
+    public String findAllStudents(Model model) {
+        List<Student> list = studentRepository.findAll();
         model.addAttribute("list", list);
         return "student";
+    }
+
+    @PostMapping("/student")
+    public String addNewStudent(@RequestParam String firstName,
+                                @RequestParam String middleName,
+                                @RequestParam String lastName,
+                                @RequestParam Long bornYear,
+                                @RequestParam String gender,
+                                Model model) {
+        Student student=new Student(firstName, middleName, lastName, bornYear, gender);
+        studentRepository.save(student);
+        return "redirect:/student";
+    }
+
+    @PostMapping("/student/{id}/remove")
+    public String deleteStudent(@PathVariable(value = "id") long id,Model model){
+        Student student=studentRepository.findById(id).orElseThrow();
+        studentRepository.delete(student);
+        return "redirect:/student";
     }
 
 }

@@ -29,8 +29,7 @@ public class Student {
 //    @ManyToOne
 //    private List<Group> group;
 
-    public Student(Long id, String firstName, String middleName, String lastName, Long bornYear, String gender) {
-        this.id = id;
+    public Student(String firstName, String middleName, String lastName, Long bornYear, String gender) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;

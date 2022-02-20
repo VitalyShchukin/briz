@@ -15,16 +15,25 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column (name = "first_name")
+    @Column(name = "first_name")
     private String firstName;
-    @Column (name = "middle_name")
+    @Column(name = "middle_name")
     private String middleName;
-    @Column (name = "last_name")
+    @Column(name = "last_name")
     private String lastName;
-    @Column (name = "born_year")
+    @Column(name = "born_year")
     private Long bornYear;
-    @Column (name = "gender")
+    @Column(name = "gender")
     private String gender;
-    @Column (name = "main_subject")
+    @Column(name = "main_subject")
     private String mainSubject;
+
+    public Teacher(String firstName, String middleName, String lastName, Long bornYear, String gender, String mainSubject) {
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.bornYear = bornYear;
+        this.gender = gender;
+        this.mainSubject = mainSubject;
+    }
 }
