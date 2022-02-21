@@ -19,8 +19,8 @@ public class StudentController {
 
     @GetMapping("/student")
     public String findAllStudents(Model model) {
-        List<Student> list = studentRepository.findAll();
-        model.addAttribute("list", list);
+        List<Student> students = studentRepository.findAll();
+        model.addAttribute("students", students);
         return "student";
     }
 

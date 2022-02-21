@@ -14,6 +14,7 @@ import javax.persistence.*;
 public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name = "id")
     private Long id;
     @Column(name = "first_name")
     private String firstName;
@@ -27,6 +28,10 @@ public class Teacher {
     private String gender;
     @Column(name = "main_subject")
     private String mainSubject;
+
+    @OneToOne (mappedBy = "teacher")
+    private Grade grade;
+
 
     public Teacher(String firstName, String middleName, String lastName, Long bornYear, String gender, String mainSubject) {
         this.firstName = firstName;

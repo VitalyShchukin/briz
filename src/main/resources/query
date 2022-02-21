@@ -23,7 +23,7 @@ CHECK (born_year>1900),
 PRIMARY KEY (id)
 );
 
-CREATE TABLE public.group (
+CREATE TABLE public.grade (
 id SERIAL NOT NULL,
 mnemocode VARCHAR(10) NOT NULL,
 academic_year INTEGER NOT NULL,

@@ -24,7 +24,7 @@
                     <th scope="col" width="" align="center" style="width:15%">Фамилия учителя</th>
                     <th scope="col" width="" align="center" style="width:15%">Год рождения учителя</th>
                     <th scope="col" width="" align="center" style="width:15%">Пол учителя</th>
-                    <th scope="col" width="" align="center" style="width:15%">Учебная дисциплина</th>
+                    <th scope="col" width="" align="center" style="width:10%">Учебная дисциплина</th>
                     <th scope="col" width="" align="center" style="width:10%"></th>
                 </tr>
                 </thead>
@@ -80,7 +80,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="el : ${list}">
+            <tr th:each="el : ${teachers}">
                 <td th:text="${el.firstName}"/>
                 <td th:text="${el.middleName}"/>
                 <td th:text="${el.lastName}"/>

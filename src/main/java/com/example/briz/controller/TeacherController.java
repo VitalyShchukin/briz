@@ -19,8 +19,8 @@ public class TeacherController {
 
     @GetMapping("/teacher")
     public String findAllTeachers(Model model) {
-        List<Teacher> list = teacherRepository.findAll();
-        model.addAttribute("list", list);
+        List<Teacher> teachers = teacherRepository.findAll();
+        model.addAttribute("teachers", teachers);
         return "teacher";
     }
 
@@ -38,8 +38,8 @@ public class TeacherController {
     }
 
     @PostMapping("/teacher/{id}/remove")
-    public String deleteTeacher(@PathVariable(value="id") long id, Model model){
-        Teacher teacher=teacherRepository.findById(id).orElseThrow();
+    public String deleteTeacher(@PathVariable(value = "id") long id, Model model) {
+        Teacher teacher = teacherRepository.findById(id).orElseThrow();
         teacherRepository.delete(teacher);
         return "redirect:/teacher";
     }
