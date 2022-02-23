@@ -10,28 +10,28 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "teacher")
+@Table(name = "teachers")
 public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "id")
+    @Column (name = "id", nullable = false)
     private Long id;
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
-    @Column(name = "middle_name")
+    @Column(name = "middle_name", nullable = false)
     private String middleName;
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
-    @Column(name = "born_year")
+    @Column(name = "born_year", nullable = false)
     private Long bornYear;
-    @Column(name = "gender")
+    @Column(name = "gender", nullable = false)
     private String gender;
-    @Column(name = "main_subject")
+    @Column(name = "main_subject", nullable = false)
     private String mainSubject;
 
-    @OneToOne (mappedBy = "teacher")
+    @ManyToOne (cascade = CascadeType.ALL)
+    @JoinColumn(name = "grade_id")
     private Grade grade;
-
 
     public Teacher(String firstName, String middleName, String lastName, Long bornYear, String gender, String mainSubject) {
         this.firstName = firstName;

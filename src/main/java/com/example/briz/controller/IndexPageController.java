@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class MainPageController {
+public class IndexPageController {
 
     @GetMapping("/")
     public String pageIndex(Model model){
@@ -15,6 +15,11 @@ public class MainPageController {
     @GetMapping("/about")
     public String pageAbout(Model model){
         return "about";
+    }
+
+    @GetMapping("/page-except")
+    public String pageException(Model model){
+        return "page-except";
     }
 
 }

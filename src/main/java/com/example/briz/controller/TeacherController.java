@@ -3,6 +3,7 @@ package com.example.briz.controller;
 import com.example.briz.model.Teacher;
 import com.example.briz.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,31 +18,33 @@ public class TeacherController {
     @Autowired
     private TeacherRepository teacherRepository;
 
-    @GetMapping("/teacher")
+    @GetMapping("/teachers")
     public String findAllTeachers(Model model) {
-        List<Teacher> teachers = teacherRepository.findAll();
+        List<Teacher> teachers = teacherRepository.findAll(Sort.by("lastName"));
         model.addAttribute("teachers", teachers);
-        return "teacher";
+        return "teachers";
     }
 
-    @PostMapping("/teacher")
+    @PostMapping("/teachers")
     public String addNewTeacher(@RequestParam String firstName,
                                 @RequestParam String middleName,
                                 @RequestParam String lastName,
-                                @RequestParam Long bornYear,
+                                @RequestParam(defaultValue = "0") Long bornYear,
                                 @RequestParam String gender,
-                                @RequestParam String mainSubject,
-                                Model model) {
-        Teacher teacher = new Teacher(firstName, middleName, lastName, bornYear, gender, mainSubject);
-        teacherRepository.save(teacher);
-        return "redirect:/teacher";
+                                @RequestParam String mainSubject) {
+        if (firstName != null && !firstName.isEmpty() && middleName != null && !middleName.isEmpty()
+                && lastName != null && !lastName.isEmpty() && bornYear != 0
+                && gender != null && !gender.isEmpty() && mainSubject != null && !mainSubject.isEmpty()) {
+            Teacher teacher = new Teacher(firstName, middleName, lastName, bornYear, gender, mainSubject);
+            teacherRepository.save(teacher);
+            return "redirect:/teachers";
+        } else return "redirect:/page-except";
     }
 
-    @PostMapping("/teacher/{id}/remove")
+    @PostMapping("/teachers/{id}/remove")
     public String deleteTeacher(@PathVariable(value = "id") long id, Model model) {
         Teacher teacher = teacherRepository.findById(id).orElseThrow();
         teacherRepository.delete(teacher);
-        return "redirect:/teacher";
+        return "redirect:/teachers";
     }
-
 }

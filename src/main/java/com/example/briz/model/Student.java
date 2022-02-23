@@ -11,24 +11,25 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "student")
+@Table(name = "students")
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "id")
+    @Column (name = "id", nullable = false)
     private Long id;
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
-    @Column(name = "middle_name")
+    @Column(name = "middle_name", nullable = false)
     private String middleName;
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
-    @Column(name = "born_year")
+    @Column(name = "born_year", nullable = false)
     private Long bornYear;
-    @Column(name = "gender")
+    @Column(name = "gender", nullable = false)
     private String gender;
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
+    @JoinColumn(name = "grade_id")
     private Grade grade;
 
     public Student(String firstName, String middleName, String lastName, Long bornYear, String gender) {
