@@ -15,17 +15,17 @@ import java.util.List;
 public class Grade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Long id;
-    @Column(name = "mnemocode", nullable = false)
+    @Column(name = "mnemocode")
     private String mnemocode;
-    @Column(name = "academic_year", nullable = false)
+    @Column(name = "academic_year")
     private Long academicYear;
 
-    @OneToMany(mappedBy = "grade", orphanRemoval = true)
+    @OneToMany(mappedBy = "grade")
     private List<Teacher> teacher;
 
-    @OneToMany(mappedBy = "grade", orphanRemoval = true)
+    @OneToMany(mappedBy = "grade")
     private List<Student> student;
 
     public Grade(String mnemocode, Long academicYear) {

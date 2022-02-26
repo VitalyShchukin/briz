@@ -29,7 +29,7 @@ public class StudentController {
     public String addNewStudent(@RequestParam String firstName,
                                 @RequestParam String middleName,
                                 @RequestParam String lastName,
-                                @RequestParam(defaultValue = "0") Long bornYear,
+                                @RequestParam (defaultValue = "0") Long bornYear,
                                 @RequestParam String gender) {
         if (firstName != null && !firstName.isEmpty() && middleName != null && !middleName.isEmpty()
                 && lastName != null && !lastName.isEmpty() && bornYear != 0
@@ -42,8 +42,8 @@ public class StudentController {
 
     @PostMapping("/students/{id}/remove")
     public String deleteStudent(@PathVariable(value = "id") long id, Model model) {
-        Student student = studentRepository.findById(id).orElseThrow();
-        studentRepository.delete(student);
+//        Student student = studentRepository.findById(id).orElseThrow();
+//        studentRepository.delete(student);
         return "redirect:/students";
     }
 }

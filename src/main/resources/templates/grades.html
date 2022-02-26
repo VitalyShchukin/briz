@@ -88,8 +88,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="el : ${gradeList}">
-                    <td th:text="${el.id}"/>
+                <tr th:each="el : ${gradeTableRow}">
+                    <td th:text="${el.teacherName}"/>
+                    <td th:text="${el.studentName}"/>
+                    <td th:text="${el.studentBornYear}"/>
+                    <td th:text="${el.gradeAcademicYear}"/>
+                    <td th:text="${el.gradeMnemocode}"/>
                     <td>
                         <form th:action="'/grades/'+${el.id}+'/remove'" method="post">
                             <button class="btn btn-sm btn-outline-secondary" tipe="submit">Удалить запись</button>

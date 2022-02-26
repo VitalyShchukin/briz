@@ -43,8 +43,8 @@ public class TeacherController {
 
     @PostMapping("/teachers/{id}/remove")
     public String deleteTeacher(@PathVariable(value = "id") long id, Model model) {
-        Teacher teacher = teacherRepository.findById(id).orElseThrow();
-        teacherRepository.delete(teacher);
+//        Teacher teacher = teacherRepository.findById(id).orElseThrow();
+//        teacherRepository.delete(teacher);
         return "redirect:/teachers";
     }
 }

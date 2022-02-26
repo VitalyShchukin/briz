@@ -14,22 +14,22 @@ import javax.persistence.*;
 public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "id", nullable = false)
+    @Column (name = "id")
     private Long id;
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name")
     private String firstName;
-    @Column(name = "middle_name", nullable = false)
+    @Column(name = "middle_name")
     private String middleName;
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "last_name")
     private String lastName;
-    @Column(name = "born_year", nullable = false)
+    @Column(name = "born_year")
     private Long bornYear;
-    @Column(name = "gender", nullable = false)
+    @Column(name = "gender")
     private String gender;
-    @Column(name = "main_subject", nullable = false)
+    @Column(name = "main_subject")
     private String mainSubject;
 
-    @ManyToOne (cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "grade_id")
     private Grade grade;
 
