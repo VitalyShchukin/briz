@@ -80,17 +80,17 @@
             <table class="table table-striped table-sm" width="">
                 <thead>
                 <tr>
-                    <th scope="col" width="" align="center" style="width:25%">Классный руководитель</th>
-                    <th scope="col" width="" align="center" style="width:25%">Ученик</th>
+<!--                    <th scope="col" width="" align="center" style="width:25%">Классный руководитель</th>-->
+                    <th scope="col" width="" align="center" style="width:35%">Ученик</th>
                     <th scope="col" width="" align="center" style="width:15%">Год рождения ученика</th>
                     <th scope="col" width="" align="center" style="width:15%">Год обучения</th>
                     <th scope="col" width="" align="center" style="width:10%">Код класса</th>
-                    <th scope="col" width="" align="center" style="width:10%"></th>
+                    <th scope="col" width="" align="center" style="width:15%"></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="el : ${gradeTableRow}">
-                    <td th:text="${el.teacherName}"/>
+<!--                    <td th:text="${el.teacherName}"/>-->
                     <td th:text="${el.studentName}"/>
                     <td th:text="${el.studentBornYear}"/>
                     <td th:text="${el.gradeAcademicYear}"/>

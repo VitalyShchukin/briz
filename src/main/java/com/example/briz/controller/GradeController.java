@@ -49,7 +49,7 @@ public class GradeController {
 
             if (!item.getTeacher().isEmpty()) {
                 Teacher teacher = item.getTeacher().get(0);
-                tableRow.setTeacherName(teacher.getFirstName() + " " + teacher.getLastName() + " " + teacher.getMiddleName());
+                tableRow.setTeacherName(teacher.getFirstName() + " " + teacher.getMiddleName() + " " + teacher.getLastName());
             }
             if (!item.getStudent().isEmpty()) {
                 Student student = item.getStudent().get(0);
