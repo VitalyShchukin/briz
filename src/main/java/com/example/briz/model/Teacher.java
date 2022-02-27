@@ -29,7 +29,7 @@ public class Teacher {
     @Column(name = "main_subject")
     private String mainSubject;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "grade_id")
     private Grade grade;
 

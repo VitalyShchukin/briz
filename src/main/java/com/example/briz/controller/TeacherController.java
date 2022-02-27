@@ -3,6 +3,8 @@ package com.example.briz.controller;
 import com.example.briz.model.Teacher;
 import com.example.briz.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
+import java.util.stream.IntStream;
 
 @Controller
 public class TeacherController {
@@ -19,9 +21,15 @@ public class TeacherController {
     private TeacherRepository teacherRepository;
 
     @GetMapping("/teachers")
-    public String findAllTeachers(Model model) {
-        List<Teacher> teachers = teacherRepository.findAll(Sort.by("lastName"));
-        model.addAttribute("teachers", teachers);
+    public String findAllTeachers(@RequestParam(value="page", defaultValue = "0") int page,
+            Model model) {
+
+        Page<Teacher> allTeachers=teacherRepository.findAll(PageRequest.of(page, 10, Sort.by("lastName")));
+        int totalPages=allTeachers.getTotalPages();
+
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("allTeachers", allTeachers);
+        model.addAttribute("numbers", IntStream.range(0, totalPages).toArray());
         return "teachers";
     }
 
@@ -43,8 +51,8 @@ public class TeacherController {
 
     @PostMapping("/teachers/{id}/remove")
     public String deleteTeacher(@PathVariable(value = "id") long id, Model model) {
-//        Teacher teacher = teacherRepository.findById(id).orElseThrow();
-//        teacherRepository.delete(teacher);
+        Teacher teacher = teacherRepository.findById(id).orElseThrow(()->new RuntimeException("not found this teacher with id - "+id));
+        teacherRepository.delete(teacher);
         return "redirect:/teachers";
     }
 }

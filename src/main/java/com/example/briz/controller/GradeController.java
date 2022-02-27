@@ -8,6 +8,9 @@ import com.example.briz.repository.GradeRepository;
 import com.example.briz.repository.StudentRepository;
 import com.example.briz.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,61 +31,68 @@ public class GradeController {
     private TeacherRepository teacherRepository;
 
     @GetMapping("/grades")
-    public String findAllRecords(Model model) {
+    public String findAllRecords(@RequestParam(value = "page", defaultValue = "0") int page,
+                                 Model model) {
         List<Student> studentsList = studentRepository.findAll();
         List<Teacher> teachersList = teacherRepository.findAll();
         model.addAttribute("teachersList", teachersList);
         model.addAttribute("studentsList", studentsList);
 
-        List<Grade> gradeList = gradeRepository.findAll();
         List<GradeTableRow> gradeTableRow = new ArrayList<>();
+        Page<Grade> gradeList = gradeRepository.findAll(PageRequest.of(page, 10, Sort.by("mnemocode")));
         gradeList.forEach(item -> {
-            GradeTableRow TableRow = new GradeTableRow();
-            TableRow.setId(item.getId());
-            TableRow.setGradeMnemocode(item.getMnemocode());
-            TableRow.setGradeAcademicYear(item.getAcademicYear());
+            GradeTableRow tableRow = new GradeTableRow();
+
+            tableRow.setId(item.getId());
+            tableRow.setGradeMnemocode(item.getMnemocode());
+            tableRow.setGradeAcademicYear(item.getAcademicYear());
+
             if (!item.getTeacher().isEmpty()) {
                 Teacher teacher = item.getTeacher().get(0);
-                TableRow.setTeacherName(teacher.getFirstName() +" "+ teacher.getLastName() +" "+ teacher.getMiddleName());
-
+                tableRow.setTeacherName(teacher.getFirstName() + " " + teacher.getLastName() + " " + teacher.getMiddleName());
             }
-            gradeTableRow.add(TableRow);
+            if (!item.getStudent().isEmpty()) {
+                Student student = item.getStudent().get(0);
+                tableRow.setStudentName(student.getFirstName() + " " + student.getMiddleName() + " " + student.getLastName());
+                tableRow.setStudentBornYear(student.getBornYear());
+            }
+            gradeTableRow.add(tableRow);
         });
-
-//////////////////////////////////////////////
         model.addAttribute("gradeTableRow", gradeTableRow);
         return "grades";
     }
 
     @PostMapping("/grades")
-    public String addingGradeToStudentAndTeacher(@RequestParam String mnemocode,
-                                                 @RequestParam Long academicYear,
-                                                 @RequestParam Long studentId,
-                                                 @RequestParam Long teacherId,
+    public String addingGradeToStudentAndTeacher(@RequestParam(defaultValue = "0") String mnemocode,
+                                                 @RequestParam(defaultValue = "0") Long academicYear,
+                                                 @RequestParam(defaultValue = "0") Long studentId,
+                                                 @RequestParam(defaultValue = "0") Long teacherId,
                                                  Model model) {
         model.addAttribute("studentId", studentId);
         model.addAttribute("teacherId", teacherId);
-        Grade grade = new Grade(mnemocode, academicYear);
-        gradeRepository.save(grade);
 
-        Student updateStudent = studentRepository.getById(studentId);
-        updateStudent.setGrade(grade);
-        studentRepository.save(updateStudent);
+        if (mnemocode != null && !mnemocode.isEmpty() && academicYear != 0
+                && studentId != 0 && teacherId != 0) {
 
-        Teacher updateTeacher = teacherRepository.getById(teacherId);
-        updateTeacher.setGrade(grade);
-        studentRepository.save(updateStudent);
+            Grade grade = new Grade(mnemocode, academicYear);
+            gradeRepository.save(grade);
 
-        return "redirect:/grades";
+            Student updateStudent = studentRepository.getById(studentId);
+            updateStudent.setGrade(grade);
+            studentRepository.save(updateStudent);
+
+            Teacher updateTeacher = teacherRepository.getById(teacherId);
+            updateTeacher.setGrade(grade);
+            studentRepository.save(updateStudent);
+
+            return "redirect:/grades";
+        } else return "redirect:/page-except";
     }
 
     @PostMapping("/grades/{id}/remove")
     public String deleteStudentFromGrade(@PathVariable(value = "id") long id, Model model) {
-//        Grade grade = gradeRepository.findById(id).orElseThrow();
-//        List<Student> students = studentRepository.findByGrade(grade);
-////        for:each
-//        ////////////////////////////////////////////////
-//        gradeRepository.delete(grade);
+        Grade grade = gradeRepository.findById(id).orElseThrow(() -> new RuntimeException("not found this grade with id- " + id));
+        gradeRepository.delete(grade);
         return "redirect:/grades";
     }
 }

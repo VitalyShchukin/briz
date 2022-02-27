@@ -27,4 +27,6 @@ public interface GradeRepository extends JpaRepository<Grade, Long> {
 //    @Query(value =sqlText, nativeQuery = true)
 //    public List<Grade> findAllRecords();
 
+
+//    Page<Student> findByGender(String gender, Pageable pageable);
 }

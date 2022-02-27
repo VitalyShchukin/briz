@@ -40,7 +40,7 @@
                         </td>
                         <td>
                             <select class="form-select" name="gender">
-                                <option value="" align="center">Выберите пол</option>
+                                <option value="" align="center" selected disabled>Выберите пол</option>
                                 <option align="center">м</option>
                                 <option align="center">ж</option>
                             </select>
@@ -67,12 +67,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="el : ${students}">
-                <td th:text="${el.firstName}"/>
-                <td th:text="${el.middleName}"/>
-                <td th:text="${el.lastName}"/>
-                <td th:text="${el.bornYear}"/>
-                <td th:text="${el.gender}"/>
+            <tr th:each="el : ${allStudents}">
+                                <td th:text="${el.firstName}"/>
+                                <td th:text="${el.middleName}"/>
+                                <td th:text="${el.lastName}"/>
+                                <td th:text="${el.bornYear}"/>
+                                <td th:text="${el.gender}"/>
                 <td>
                     <form th:action="'/students/'+${el.id}+'/remove'" method="post">
                         <button class="btn btn-sm btn-outline-secondary" tipe="submit">Удалить запись</button>
@@ -81,6 +81,13 @@
             </tr>
             </tbody>
         </table>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center me-2" th:if="${totalPages>1}">
+                <li class="page-item" th:each="pageNumber:${numbers}">
+                    <a class="page-link" th:href="@{'/students?page='+${pageNumber}}"
+                       th:text="${pageNumber+1}"></a></li>
+            </ul>
+        </nav>
     </div>
 </div>
 

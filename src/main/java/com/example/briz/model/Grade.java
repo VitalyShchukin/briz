@@ -22,10 +22,10 @@ public class Grade {
     @Column(name = "academic_year")
     private Long academicYear;
 
-    @OneToMany(mappedBy = "grade")
+    @OneToMany(mappedBy = "grade", cascade = CascadeType.ALL)
     private List<Teacher> teacher;
 
-    @OneToMany(mappedBy = "grade")
+    @OneToMany(mappedBy = "grade", cascade = CascadeType.ALL)
     private List<Student> student;
 
     public Grade(String mnemocode, Long academicYear) {

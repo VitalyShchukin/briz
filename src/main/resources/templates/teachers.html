@@ -41,14 +41,14 @@
                         </td>
                         <td>
                             <select class="form-select" name="gender">
-                                <option value="" align="center">Выберите пол</option>
+                                <option value="" align="center" selected disabled>Выберите пол</option>
                                 <option align="center">м</option>
                                 <option align="center">ж</option>
                             </select>
                         </td>
                         <td>
                             <select class="form-select" name="mainSubject">
-                                <option value="" align="center">Выберите дисциплину</option>
+                                <option value="" align="center" selected disabled>Выберите дисциплину</option>
                                 <option align="center">Русский язык</option>
                                 <option align="center">Литература</option>
                                 <option align="center">Алгебра</option>
@@ -82,7 +82,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="el : ${teachers}">
+            <tr th:each="el : ${allTeachers}">
                 <td th:text="${el.firstName}"/>
                 <td th:text="${el.middleName}"/>
                 <td th:text="${el.lastName}"/>
@@ -97,6 +97,13 @@
             </tr>
             </tbody>
         </table>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center me-2" th:if="${totalPages>1}">
+                <li class="page-item" th:each="pageNumber:${numbers}">
+                    <a class="page-link" th:href="@{'/teachers?page='+${pageNumber}}"
+                       th:text="${pageNumber+1}"></a></li>
+            </ul>
+        </nav>
     </div>
 </div>
 

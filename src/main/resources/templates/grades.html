@@ -31,7 +31,7 @@
                     <form action="/grades" method="post">
                         <td>
                             <select class="form-select" name="studentId">
-                                <option value="" align="center">Выберите ученика из списка</option>
+                                <option value="" align="center" selected disabled>Выберите ученика из списка</option>
                                 <option align="center"
                                         th:each="st:${studentsList}"
                                         th:value="${st.id}"
@@ -41,7 +41,7 @@
                         </td>
                         <td>
                             <select class="form-select" name="mnemocode">
-                                <option value="" align="center">Укажите класс</option>
+                                <option value="" align="center" selected disabled>Укажите класс</option>
                                 <option align="center">1А</option>
                                 <option align="center">1Б</option>
                                 <option align="center">2А</option>
@@ -57,7 +57,7 @@
                         </td>
                         <td>
                             <select class="form-select" name="teacherId">
-                                <option value="" align="center">Выберите учителя из списка</option>
+                                <option value="" align="center" selected disabled>Выберите учителя из списка</option>
                                 <option align="center"
                                         th:each="t:${teachersList}"
                                         th:value="${t.id}"
@@ -80,11 +80,12 @@
             <table class="table table-striped table-sm" width="">
                 <thead>
                 <tr>
-                    <th scope="col" width="" align="center" style="width:15%">Класс</th>
-                    <th scope="col" width="" align="center" style="width:15%">Фамилия ученика</th>
-                    <th scope="col" width="" align="center" style="width:15%">Год рождения</th>
-                    <th scope="col" width="" align="center" style="width:15%">Пол</th>
-                    <th scope="col" width="" align="center" style="width:15%">Классный руководитель</th>
+                    <th scope="col" width="" align="center" style="width:25%">Классный руководитель</th>
+                    <th scope="col" width="" align="center" style="width:25%">Ученик</th>
+                    <th scope="col" width="" align="center" style="width:15%">Год рождения ученика</th>
+                    <th scope="col" width="" align="center" style="width:15%">Год обучения</th>
+                    <th scope="col" width="" align="center" style="width:10%">Код класса</th>
+                    <th scope="col" width="" align="center" style="width:10%"></th>
                 </tr>
                 </thead>
                 <tbody>
